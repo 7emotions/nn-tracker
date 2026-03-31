@@ -153,7 +153,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--save_path",
         type=str,
-        default="tracker_model_resnet.pth",
+        default="tracker_model.pth",
         help="Path to save the trained model",
     )
     parser.add_argument(

@@ -28,7 +28,7 @@ conda activate transformer_tracker
 python demo.py
 
 # 指定视频文件
-python demo.py --video your_video.mp4
+python demo.py --video test.mp4
 
 # 使用摄像头
 python demo.py --video 0
@@ -44,7 +44,7 @@ python demo.py --tracker kcf
 python demo.py --tracker resnet
 
 # 使用Transformer追踪器 + 自定义模型
-python demo.py --tracker custom --model tracker_model_resnet.pth
+python demo.py --tracker custom --model tracker_model.pth
 ```
 
 ## 命令行参数
@@ -61,28 +61,15 @@ python demo.py --tracker custom --model tracker_model_resnet.pth
 ### 使用预训练ResNet训练
 
 ```bash
-python train_tracker_resnet.py
+python train.py --video test.mp4 \
+--use_pretrained_backbone \
+--save_path tracker_model.pth \
+--num_epochs 50 \
+--batch_size 8  
 ```
 
-这会使用预训练的ResNet50作为特征提取器进行训练，生成的模型文件为`tracker_model_resnet.pth`。
+这会使用预训练的ResNet50作为特征提取器进行训练，生成的模型文件为`tracker_model.pth`。
 
-### 自定义训练参数
-
-修改`train_tracker_resnet.py`中的参数：
-
-```python
-# 训练轮数
-num_epochs = 50
-
-# 批次大小
-batch_size = 8
-
-# 模型保存路径
-save_path = 'tracker_model_resnet.pth'
-
-# 视频文件路径
-video_path = 'test.mp4'
-```
 
 ## 交互操作
 
@@ -95,11 +82,11 @@ video_path = 'test.mp4'
 
 ```
 track/
-├── demo.py              # 主程序（支持命令行参数）
-├── transformer_tracker.py   # 追踪器模型实现
-├── train_tracker_resnet.py  # 训练脚本（使用预训练ResNet）
-├── README.md                # 项目说明文档
-└── test.mp4                # 示例视频文件
+├── demo.py                   # 主程序（支持命令行参数）
+├── transformer_tracker.py    # 追踪器模型实现
+├── train.py                  # 训练脚本
+├── README.md                 # 项目说明文档
+└── test.mp4                  # 示例视频文件
 ```
 
 ## 模型说明
@@ -126,14 +113,14 @@ track/
 如果遇到模型加载错误，程序会自动回退到OpenCV追踪器。建议重新训练模型：
 
 ```bash
-python train_tracker_resnet.py
+python train.py
 ```
 
 ### 2. 追踪效果不好
 
 可以尝试以下方法：
 - 使用`--tracker resnet`选项，使用预训练ResNet
-- 训练自己的模型：`python train_tracker_resnet.py`
+- 训练自己的模型：`python train.py`
 - 确保选择的目标区域足够大且特征明显
 
 ### 3. 速度太慢
