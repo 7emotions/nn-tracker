@@ -2,7 +2,7 @@
 import torch
 import numpy as np
 import pytest
-from transformer_tracker import TargetTrackingTransformer, TargetTracker
+from transformer_tracker import TargetTrackingTransformer, TargetTracker, TrajectoryTracker
 
 
 class TestFeatureAdapterInInitTracker:
@@ -58,9 +58,7 @@ class TestFeatureAdapterInInitTracker:
         tracker.device = device
         tracker.model = model
         tracker.use_transformer = True
-        tracker.trajectory_tracker = __import__(
-            'transformer_tracker', fromlist=['TrajectoryTracker']
-        ).TrajectoryTracker()
+        tracker.trajectory_tracker = TrajectoryTracker()
         tracker.target_embedding = None
 
         # Create a dummy frame and bbox
