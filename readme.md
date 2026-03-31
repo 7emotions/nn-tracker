@@ -5,17 +5,18 @@
 
 ## 功能特点
 
-- 🎯 支持多种追踪器类型：OpenCV KCF、Transformer + 预训练ResNet、Transformer + 自定义模型
-- 🚀 交互式目标选择：使用鼠标拖拽框选要追踪的目标
-- 📊 实时追踪信息显示：FPS、帧数、置信度等
-- 💾 支持视频输出保存
-- 🎬 支持视频文件和摄像头输入
-- 🔧 灵活的命令行参数配置
+- 支持多种追踪器类型：OpenCV KCF、Transformer + 预训练ResNet、Transformer + 自定义模型
+- 交互式目标选择：使用鼠标拖拽框选要追踪的目标
+- 实时追踪信息显示：FPS、帧数、置信度等
+- 支持视频输出保存
+- 支持视频文件和摄像头输入
+- 灵活的命令行参数配置
 
 ## 安装依赖
 
 ```bash
-pip install torch torchvision opencv-python numpy
+conda env create -f env.yml
+conda activate transformer_tracker
 ```
 
 ## 快速开始
@@ -24,26 +25,26 @@ pip install torch torchvision opencv-python numpy
 
 ```bash
 # 使用默认参数（OpenCV KCF追踪器，视频文件为test.mp4）
-python demo_cmd.py
+python demo.py
 
 # 指定视频文件
-python demo_cmd.py --video your_video.mp4
+python demo.py --video your_video.mp4
 
 # 使用摄像头
-python demo_cmd.py --video 0
+python demo.py --video 0
 ```
 
 ### 选择追踪器类型
 
 ```bash
 # 使用OpenCV KCF追踪器（默认，快速但精度较低）
-python demo_cmd.py --tracker kcf
+python demo.py --tracker kcf
 
 # 使用Transformer追踪器 + 预训练ResNet（较慢但精度较高）
-python demo_cmd.py --tracker resnet
+python demo.py --tracker resnet
 
 # 使用Transformer追踪器 + 自定义模型
-python demo_cmd.py --tracker custom --model tracker_model_resnet.pth
+python demo.py --tracker custom --model tracker_model_resnet.pth
 ```
 
 ## 命令行参数
@@ -94,7 +95,7 @@ video_path = 'test.mp4'
 
 ```
 track/
-├── demo_cmd.py              # 主程序（支持命令行参数）
+├── demo.py              # 主程序（支持命令行参数）
 ├── transformer_tracker.py   # 追踪器模型实现
 ├── train_tracker_resnet.py  # 训练脚本（使用预训练ResNet）
 ├── README.md                # 项目说明文档
