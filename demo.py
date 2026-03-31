@@ -386,6 +386,7 @@ def main():
         # 使用Transformer追踪器 + 预训练ResNet
         tracker.use_pretrained_backbone = True
         tracker.use_transformer = True
+        tracker.model_path = args.model if args.model else "tracker_model_resnet.pth"
         print("使用Transformer追踪器 + 预训练ResNet")
     elif args.tracker == "custom":
         # 使用Transformer追踪器 + 自定义特征提取器

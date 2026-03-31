@@ -320,6 +320,8 @@ class TargetTracker:
                 
                 # 提取目标特征作为嵌入
                 features = self.model.feature_extractor(target_tensor)
+                if hasattr(self.model, 'feature_adapter') and self.model.feature_adapter is not None:
+                    features = self.model.feature_adapter(features)
                 self.target_embedding = features.mean(dim=[2, 3])  # [1, d_model]
             
         else:
